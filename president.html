@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>体験 ① ─ 研修用</title>
+<link rel="stylesheet" href="common.css">
+<style>
+.mail-window {
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid var(--c-gray-l);
+  overflow: hidden;
+  font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif;
+}
+.mail-header {
+  background: #f3f3f3;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--c-gray-l);
+  font-size: 0.85rem;
+  color: var(--c-gray-d);
+}
+.mail-meta {
+  padding: 1rem 1.2rem 0.5rem;
+  border-bottom: 1px solid #eee;
+  font-size: 0.9rem;
+}
+.mail-meta .row { margin: 0.25rem 0; }
+.mail-meta .label {
+  display: inline-block;
+  width: 4.5em;
+  color: var(--c-gray-d);
+  font-size: 0.82rem;
+}
+.mail-meta .from-addr {
+  color: var(--c-gray-d);
+  font-size: 0.82rem;
+  margin-left: 0.4em;
+}
+.mail-subject {
+  padding: 0.8rem 1.2rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border-bottom: 1px solid #eee;
+}
+.mail-body {
+  padding: 1.2rem;
+  font-size: 0.95rem;
+  white-space: pre-wrap;
+  line-height: 1.8;
+}
+.score {
+  background: var(--c-navy);
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+  display: inline-block;
+  font-weight: 700;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="page-header">
+    <span class="tag">体験 ①</span>
+    <h1 style="margin-top: 0.4rem;">会長なりすましメール</h1>
+    <p class="sub">下のメールには「危険サイン」が4つ隠れています。気づいた箇所をタップしてください</p>
+  </div>
+
+  <div class="card" style="padding: 0;">
+    <div class="mail-window">
+      <div class="mail-header">受信箱 ─ メール</div>
+
+      <div class="mail-meta">
+        <div class="row">
+          <span class="label">From:</span>
+          <strong>商工会 山田会長</strong>
+          <span class="from-addr danger-spot" data-id="1" data-hint="ドメインが商工会の正規ドメインではない（@gmail等の無料アドレス）">
+            &lt;yamada.kaicho@gmaii-jp.com&gt;
+          </span>
+        </div>
+        <div class="row"><span class="label">To:</span> 商工会 事務局 &lt;jimukyoku@example-shokokai.or.jp&gt;</div>
+        <div class="row"><span class="label">日時:</span> 2026年5月20日 22:43</div>
+      </div>
+
+      <div class="mail-subject">
+        <span class="danger-spot" data-id="2" data-hint="「至急」「至急ご対応」── 急かす表現で冷静さを奪う典型パターン">【至急ご対応】</span>
+        商工会LINEグループ作成の件
+      </div>
+
+      <div class="mail-body">山田です。お疲れさまです。
+
+業務連絡をスムーズにするため、商工会のLINEグループを新たに作成しました。
+<span class="danger-spot" data-id="3" data-hint="普段の会長は電話・LINEで連絡する人物。突然メールでQRコード送付を求めるのは違和感">大変お手数ですが、明日の朝までに、こちらのメールアドレス宛てに、職員全員のLINE QRコードを添付して返送してください。</span>
+
+業務効率化のため、ご理解ご協力をお願いします。
+
+<span class="danger-spot" data-id="4" data-hint="日本語に微妙な不自然さ：「お忙しい中にすいません」（→「すみません」）／敬語のズレ／ハイフン全角混在">お忙しい中にすいません。よろしく - お願いします。</span>
+
+山田</div>
+    </div>
+  </div>
+
+  <div style="margin: 1.2rem 0; text-align: center;">
+    <div class="score" id="score">気づいた危険サイン：<span id="found">0</span> / 4</div>
+  </div>
+
+  <div id="answers" style="display:none;">
+    <div class="alert success">
+      <strong>4つすべて発見できました！</strong>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0; color: var(--c-red);">▌正しい対応手順</h3>
+      <ol style="line-height: 2;">
+        <li>メールに<strong>絶対に返信しない</strong></li>
+        <li>添付・リンクは絶対に開かない</li>
+        <li><strong>会長本人に「電話」で確認</strong> ← これが100%の防衛策</li>
+        <li>偽物と確認できたら、メールは削除せず保存（証拠）</li>
+        <li>事務局長・連合会・全職員へ即時共有</li>
+      </ol>
+      <hr class="divider">
+      <p style="margin: 0;"><strong style="color: var(--c-red);">▶ 大原則：</strong>「役員・上位者からのメール依頼は、必ず電話で本人確認」をルール化</p>
+    </div>
+  </div>
+
+  <div style="margin-top: 1.5rem; text-align: center;">
+    <a href="index.html" class="btn outline">← メニューへ戻る</a>
+    <button class="btn" onclick="revealAll()">答え合わせ（全部見る）</button>
+  </div>
+
+  <div class="footer">情報セキュリティ研修 ─ NAWAGATE株式会社</div>
+</div>
+
+<script>
+const spots = document.querySelectorAll('.danger-spot');
+let found = 0;
+spots.forEach(spot => {
+  spot.addEventListener('click', () => {
+    if (!spot.classList.contains('revealed')) {
+      spot.classList.add('revealed');
+      found++;
+      document.getElementById('found').textContent = found;
+      alert('▶ ' + spot.dataset.hint);
+      if (found === spots.length) {
+        document.getElementById('answers').style.display = 'block';
+        document.getElementById('answers').scrollIntoView({behavior: 'smooth'});
+      }
+    }
+  });
+});
+function revealAll() {
+  spots.forEach(s => {
+    if (!s.classList.contains('revealed')) {
+      s.classList.add('revealed');
+      found++;
+    }
+  });
+  document.getElementById('found').textContent = found;
+  document.getElementById('answers').style.display = 'block';
+  document.getElementById('answers').scrollIntoView({behavior: 'smooth'});
+}
+</script>
+</body>
+</html>

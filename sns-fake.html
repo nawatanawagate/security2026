@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>体験 ④ ─ 研修用</title>
+<link rel="stylesheet" href="common.css">
+<style>
+.sns-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+}
+@media (max-width: 600px) { .sns-grid { grid-template-columns: 1fr; } }
+.sns-card {
+  background: #fff;
+  border: 2px solid #eee;
+  border-radius: 8px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+.sns-card:hover { border-color: var(--c-red); }
+.sns-card.real { border-color: #2e7d32; }
+.sns-card.fake { border-color: var(--c-red); }
+.sns-avatar {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c00 30%, #fbb 100%);
+  margin: 0 auto 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.6rem;
+}
+.sns-username {
+  font-weight: 700;
+  text-align: center;
+  font-size: 1.05rem;
+  margin: 0.3rem 0 0.1rem;
+}
+.sns-handle {
+  text-align: center;
+  color: #666;
+  font-size: 0.88rem;
+  font-family: 'Courier New', monospace;
+}
+.sns-verified {
+  color: #1da1f2;
+  font-size: 1rem;
+  margin-left: 4px;
+}
+.sns-meta {
+  display: flex;
+  justify-content: space-around;
+  margin: 0.8rem 0;
+  font-size: 0.82rem;
+  color: #555;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  padding: 0.5rem 0;
+}
+.sns-meta strong { display: block; color: #000; font-size: 1rem; }
+.sns-bio {
+  font-size: 0.85rem;
+  color: #333;
+  margin: 0.5rem 0;
+  line-height: 1.55;
+}
+.sns-url {
+  color: var(--c-blue);
+  font-size: 0.82rem;
+  word-break: break-all;
+  font-family: 'Courier New', monospace;
+}
+.judge {
+  position: absolute;
+  top: 8px; right: 8px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 1px 8px;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+.sns-card.real .judge { background: #2e7d32; color: #fff; border-color: #2e7d32; }
+.sns-card.fake .judge { background: var(--c-red); color: #fff; border-color: var(--c-red); }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="page-header">
+    <span class="tag">体験 ④</span>
+    <h1 style="margin-top: 0.4rem;">SNSなりすまし ─ どちらが本物？</h1>
+    <p class="sub">2つの「商工会公式」アカウント。本物だと思う方をタップしてください</p>
+  </div>
+
+  <div class="sns-grid" id="snsGrid">
+    <!-- A: 偽 -->
+    <div class="sns-card" id="cardA" onclick="judge('A')">
+      <div class="sns-avatar">商</div>
+      <div class="sns-username">かごしま商工会 公式</div>
+      <div class="sns-handle">@kagoshima_shokokai_official</div>
+      <div class="sns-meta">
+        <div><strong>14</strong>投稿</div>
+        <div><strong>327</strong>フォロワー</div>
+        <div><strong>892</strong>フォロー</div>
+      </div>
+      <div class="sns-bio">
+        鹿児島県の地域経済を応援する公式アカウントです🌸<br>
+        ★ 限定企画 投資セミナー開催中 ★<br>
+        ▶ DMにて投資情報をお届け中
+      </div>
+      <div class="sns-url">https://invest-kagoshima-club.com</div>
+      <div class="judge" id="judgeA">タップで選択</div>
+    </div>
+
+    <!-- B: 本 -->
+    <div class="sns-card" id="cardB" onclick="judge('B')">
+      <div class="sns-avatar" style="background: linear-gradient(135deg, #1e4e79 30%, #88b 100%);">商</div>
+      <div class="sns-username">
+        かごしま市商工会
+        <span class="sns-verified">✓</span>
+      </div>
+      <div class="sns-handle">@kagoshima_shokokai</div>
+      <div class="sns-meta">
+        <div><strong>1,247</strong>投稿</div>
+        <div><strong>8,453</strong>フォロワー</div>
+        <div><strong>32</strong>フォロー</div>
+      </div>
+      <div class="sns-bio">
+        鹿児島県内の小規模事業者を支援する公的団体です。<br>
+        会員企業の経営支援・販路開拓・人材育成を行っています。<br>
+        ※ DMでの投資・送金のお誘いは一切行いません
+      </div>
+      <div class="sns-url">https://www.kagoshima-shokokai.or.jp</div>
+      <div class="judge" id="judgeB">タップで選択</div>
+    </div>
+  </div>
+
+  <div id="result" style="display:none;">
+    <div class="alert" id="resultMsg"></div>
+
+    <div class="card">
+      <h3 style="margin-top:0; color: var(--c-red);">▌Aは偽物、Bが本物 ── 5つの違い</h3>
+      <ol style="line-height: 2;">
+        <li><strong>アカウント名・ユーザー名</strong><br>
+          A：「@kagoshima_shokokai_official」(余計な _official 付加)<br>
+          B：「@kagoshima_shokokai」(シンプル)</li>
+        <li><strong>認証バッジ（公式マーク）</strong><br>
+          Bには ✓ がある／Aにはない</li>
+        <li><strong>投稿数・フォロワー数</strong><br>
+          A：投稿14・フォロー892（フォロワーよりフォローが多い＝乱獲）<br>
+          B：投稿1,247・フォロワー多数・フォロー少数（自然な公式アカウント）</li>
+        <li><strong>プロフィール文の内容</strong><br>
+          A：「投資セミナー」「DMで投資情報」── 公的団体が絶対に言わない<br>
+          B：「DMでの投資・送金は一切行いません」と明示</li>
+        <li><strong>リンク先URL</strong><br>
+          A：invest-kagoshima-club.com（投資系の見知らぬドメイン）<br>
+          B：kagoshima-shokokai.or.jp（or.jp = 公的団体ドメイン）</li>
+      </ol>
+      <hr class="divider">
+      <h4 style="color: var(--c-red);">▌発見時の対応</h4>
+      <ol>
+        <li>偽アカウントのURL・スクショを保存（証拠）</li>
+        <li><strong>公式アカウントから「偽物注意」を即発信</strong></li>
+        <li>プラットフォームへ「なりすまし」通報</li>
+        <li>連合会・会員企業へ周知メール</li>
+        <li>被害が出ている場合は警察相談</li>
+      </ol>
+    </div>
+  </div>
+
+  <div style="text-align: center; margin: 1.5rem 0;">
+    <a href="index.html" class="btn outline">← メニューへ戻る</a>
+    <button class="btn" onclick="showResult()">答え合わせ</button>
+  </div>
+
+  <div class="footer">情報セキュリティ研修 ─ NAWAGATE株式会社</div>
+</div>
+
+<script>
+function judge(choice) {
+  showResult(choice);
+}
+function showResult(choice) {
+  document.getElementById('cardA').classList.add('fake');
+  document.getElementById('cardB').classList.add('real');
+  document.getElementById('judgeA').textContent = '偽物';
+  document.getElementById('judgeB').textContent = '本物';
+  const msg = document.getElementById('resultMsg');
+  if (choice === 'B') {
+    msg.className = 'alert success';
+    msg.innerHTML = '<strong>🎉 正解！</strong> Bが本物です。';
+  } else if (choice === 'A') {
+    msg.className = 'alert danger';
+    msg.innerHTML = '<strong>⚠ 残念、Aは偽物でした。</strong> 5つの違いを下で確認しましょう。';
+  } else {
+    msg.className = 'alert';
+    msg.innerHTML = '<strong>答え：</strong> Aが偽物、Bが本物です。';
+  }
+  document.getElementById('result').style.display = 'block';
+  document.getElementById('result').scrollIntoView({behavior: 'smooth'});
+}
+</script>
+</body>
+</html>

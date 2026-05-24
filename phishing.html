@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>体験 ③ ─ 研修用</title>
+<link rel="stylesheet" href="common.css">
+<style>
+.mail-window, .browser-window {
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid var(--c-gray-l);
+  overflow: hidden;
+  margin: 1rem 0;
+}
+.browser-bar {
+  background: #f3f3f3;
+  border-bottom: 1px solid var(--c-gray-l);
+  padding: 0.5rem 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+.browser-dots span {
+  display: inline-block;
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  background: #ccc;
+  margin-right: 4px;
+}
+.browser-url {
+  flex: 1;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 14px;
+  padding: 4px 0.8rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.fake-amazon {
+  background: #232f3e;
+  color: #fff;
+  padding: 0.6rem 1rem;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+.fake-amazon-form {
+  padding: 1.5rem 1.2rem;
+}
+.fake-amazon-form h2 {
+  margin: 0 0 1rem;
+  font-size: 1.2rem;
+}
+.fake-input {
+  display: block;
+  width: 100%;
+  padding: 0.6rem;
+  margin: 0.4rem 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+.fake-signin {
+  background: #f7b500;
+  color: #000;
+  border: 1px solid #d49e00;
+  padding: 0.6rem 1rem;
+  font-weight: 700;
+  width: 100%;
+  border-radius: 4px;
+  margin-top: 0.6rem;
+}
+.cmp h4 { margin: 0.5rem 0 0.2rem; font-size: 0.95rem; }
+.cmp .v {
+  font-family: 'Courier New', monospace;
+  background: #f0f0f0;
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.88rem;
+  word-break: break-all;
+}
+.cmp .v.bad { background: #f8d7da; color: var(--c-red); font-weight: 700; }
+.cmp .v.good { background: #d4edda; color: #155724; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="page-header">
+    <span class="tag">体験 ③</span>
+    <h1 style="margin-top: 0.4rem;">フィッシング詐欺 ─ 偽サイトの見抜き方</h1>
+    <p class="sub">届いたメールと、リンク先のサイト。本物との「5つの違い」を見つけてください</p>
+  </div>
+
+  <h3>STEP 1 ─ こんなメールが届きました</h3>
+  <div class="mail-window">
+    <div style="background:#f3f3f3; padding: 0.7rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.85rem; color: #666;">受信箱</div>
+    <div style="padding: 1rem 1.2rem;">
+      <div style="font-size: 0.85rem; color: #666;">From: <span class="danger-spot" data-id="1" data-hint="送信元アドレスのドメインが本物（amazon.co.jp）と違う">Amazon.co.jp &lt;account-update@amaz0n-jp.com&gt;</span></div>
+      <div style="font-size: 0.85rem; color: #666;">To: 商工会 事務局</div>
+      <div style="font-size: 0.85rem; color: #666; margin-bottom: 0.8rem;">日時: 2026年5月22日 03:17</div>
+      <div style="font-weight: 700; font-size: 1.05rem; margin-bottom: 0.6rem;">
+        <span class="danger-spot" data-id="2" data-hint="「24時間以内」など、急かす表現で冷静さを奪うのは典型的な詐欺パターン">【重要】24時間以内にお手続きください</span>
+      </div>
+      <div style="white-space: pre-wrap; line-height: 1.7; font-size: 0.95rem;">お客様のAmazonアカウントに異常なログインが検出されました。
+
+お支払い方法に問題があるため、24時間以内に下記のリンクから情報を更新してください。
+更新されない場合、アカウントは停止されます。
+
+▼ アカウント情報を更新する
+<a href="#fake-login" style="color: #0066c0; text-decoration: underline;" onclick="document.getElementById('fakeLogin').scrollIntoView({behavior:'smooth'}); return false;">https://amazon.co.jp.account-verify-secure.com/login</a>
+
+カスタマーサービス</div>
+    </div>
+  </div>
+
+  <div style="margin: 0.8rem 0;">
+    <a class="btn" href="#fake-login" onclick="document.getElementById('fakeLogin').scrollIntoView({behavior:'smooth'}); return false;">▶ メールのリンクを開く（安全）</a>
+  </div>
+
+  <h3 id="fake-login">STEP 2 ─ リンク先の「偽サイト」</h3>
+  <div class="browser-window">
+    <div class="browser-bar">
+      <span class="browser-dots"><span></span><span></span><span></span></span>
+      <span class="browser-url danger-spot" data-id="3" data-hint="URLのドメインを最後まで読む！「amazon.co.jp」のあと「.account-verify-secure.com」が本当のドメイン。amazonは偽装">https://amazon.co.jp.account-verify-secure.com/signin</span>
+      <span class="danger-spot" data-id="4" data-hint="HTTPSだから安心ではない。「鍵マーク」は通信暗号化を示すだけで、サイトの本物・偽物とは別問題" style="font-size: 0.85rem; padding: 0 0.4rem;">🔒</span>
+    </div>
+    <div class="fake-amazon">amazon</div>
+    <div class="fake-amazon-form">
+      <h2>サインイン</h2>
+      <label style="font-size: 0.88rem;">Eメールまたは携帯電話番号</label>
+      <input class="fake-input" placeholder="example@example.com">
+      <label style="font-size: 0.88rem;">パスワード</label>
+      <input class="fake-input" type="password" placeholder="•••••••">
+      <button class="fake-signin" onclick="alert('入力してはいけません！ ここで送信ボタンを押すと、IDとパスワードが犯人に渡ります。');">サインイン</button>
+      <p style="font-size: 0.75rem; color: #888; margin-top: 1rem;">
+        <span class="danger-spot" data-id="5" data-hint="本物のAmazonはフッターに「Conditions of Use」「Privacy Notice」「Help」などの正規リンクが必ずある。偽サイトはコピー忘れや表現の違いがある">© 2026 Amazon ─ 利用規約 / プライバシー</span>
+      </p>
+    </div>
+  </div>
+
+  <div style="margin: 1.2rem 0; text-align: center;">
+    <div class="score">気づいた危険サイン：<span id="found">0</span> / 5</div>
+  </div>
+
+  <div id="answers" style="display:none;">
+    <div class="alert success"><strong>5つすべて発見できました！</strong></div>
+    <div class="card">
+      <h3 style="margin-top:0; color: var(--c-red);">▌偽サイトを見抜く5つのチェックポイント</h3>
+      <div class="cmp">
+        <h4>① 送信元アドレスのドメイン</h4>
+        <div class="v good">本物 ：account-update@amazon.co.jp</div>
+        <div class="v bad">偽物 ：account-update@amaz0n-jp.com（0が数字 / ハイフン挿入）</div>
+      </div>
+      <div class="cmp">
+        <h4>② 急かす表現</h4>
+        <div class="v bad">「24時間以内」「アカウント停止」── 冷静さを奪う罠</div>
+      </div>
+      <div class="cmp">
+        <h4>③ URLのドメインを最後まで読む</h4>
+        <div class="v good">本物 ：https://www.amazon.co.jp/</div>
+        <div class="v bad">偽物 ：https://amazon.co.jp.account-verify-secure.com/</div>
+        <div style="font-size:0.85rem; color:var(--c-navy); margin-top:0.3rem;">
+          → 本当のドメインは <strong>account-verify-secure.com</strong>。「amazon.co.jp」は単なるサブドメイン偽装
+        </div>
+      </div>
+      <div class="cmp">
+        <h4>④ HTTPS（鍵マーク）でも安心しない</h4>
+        <div class="v bad">鍵マーク＝「通信が暗号化」されているだけ。偽サイトでも取得可能</div>
+      </div>
+      <div class="cmp">
+        <h4>⑤ フッター・リンクの違和感</h4>
+        <div class="v bad">正規サイトに必ずある「Conditions of Use」等のリンクが省略されている</div>
+      </div>
+      <hr class="divider">
+      <p style="margin: 0;"><strong style="color: var(--c-red);">▶ 大原則：</strong>メール内のリンクは絶対に押さない。公式サイトは<strong>ブラウザのブックマークから開く</strong>。</p>
+    </div>
+  </div>
+
+  <div style="text-align: center; margin: 1.5rem 0;">
+    <a href="index.html" class="btn outline">← メニューへ戻る</a>
+    <button class="btn" onclick="revealAll()">答え合わせ（全部見る）</button>
+  </div>
+
+  <div class="footer">情報セキュリティ研修 ─ NAWAGATE株式会社</div>
+</div>
+
+<script>
+const spots = document.querySelectorAll('.danger-spot');
+let found = 0;
+spots.forEach(spot => {
+  spot.addEventListener('click', () => {
+    if (!spot.classList.contains('revealed')) {
+      spot.classList.add('revealed');
+      found++;
+      document.getElementById('found').textContent = found;
+      alert('▶ ' + spot.dataset.hint);
+      if (found === spots.length) {
+        document.getElementById('answers').style.display = 'block';
+        document.getElementById('answers').scrollIntoView({behavior: 'smooth'});
+      }
+    }
+  });
+});
+function revealAll() {
+  spots.forEach(s => {
+    if (!s.classList.contains('revealed')) { s.classList.add('revealed'); found++; }
+  });
+  document.getElementById('found').textContent = found;
+  document.getElementById('answers').style.display = 'block';
+  document.getElementById('answers').scrollIntoView({behavior: 'smooth'});
+}
+</script>
+</body>
+</html>

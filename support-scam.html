@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>体験 ② ─ 研修用</title>
+<link rel="stylesheet" href="common.css">
+<style>
+#scamOverlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: 9999;
+  background: #003a8c;
+  color: #fff;
+  overflow: auto;
+  padding: 2rem 1rem;
+  font-family: 'Yu Gothic', 'Meiryo', sans-serif;
+}
+#scamOverlay .scam-box {
+  max-width: 600px;
+  margin: 1rem auto;
+  background: #fff;
+  color: #000;
+  padding: 1.5rem;
+  border: 3px solid #c00;
+  text-align: center;
+}
+#scamOverlay h2 {
+  color: #c00;
+  margin: 0 0 0.8rem;
+  font-size: 1.5rem;
+}
+#scamOverlay .ms-bar {
+  background: #fff;
+  color: #000;
+  padding: 0.6rem 1rem;
+  font-weight: 700;
+  text-align: left;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #0078d4;
+}
+#scamOverlay .err {
+  color: #c00;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin: 0.6rem 0;
+}
+#scamOverlay .phone {
+  background: #0078d4;
+  color: #fff;
+  padding: 0.7rem 1.4rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  display: inline-block;
+  margin: 0.5rem 0;
+  border-radius: 4px;
+}
+#scamOverlay .fake-close {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  width: 30px; height: 30px;
+  background: #c00;
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+  font-weight: 700;
+}
+#scamOverlay .escape-hint {
+  background: #fff2cc;
+  color: #000;
+  border: 2px solid #c00;
+  padding: 1rem;
+  border-radius: 6px;
+  margin: 1.5rem auto;
+  max-width: 600px;
+  text-align: left;
+}
+#scamOverlay .escape-hint h3 {
+  margin: 0 0 0.5rem;
+  color: #c00;
+}
+.keycap {
+  display: inline-block;
+  background: #fff;
+  color: #000;
+  border: 1px solid #888;
+  border-bottom-width: 3px;
+  border-radius: 4px;
+  padding: 0.15rem 0.55rem;
+  margin: 0 0.1rem;
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+.escape-btn {
+  background: #2e7d32;
+  color: #fff;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin: 1rem;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="page-header">
+    <span class="tag">体験 ②</span>
+    <h1 style="margin-top: 0.4rem;">サポート詐欺画面</h1>
+    <p class="sub">下のボタンを押すと、実際のサポート詐欺と同じ「全画面警告」が出ます</p>
+  </div>
+
+  <div class="alert">
+    <strong>⚠ これは安全な体験です</strong>
+    <p style="margin: 0.4rem 0 0; font-size: 0.92rem;">
+      実際にウイルスに感染することはありません。練習用の警告画面を表示するだけです。<br>
+      <strong>PCでの体験を推奨</strong>（スマホでも可）。
+    </p>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0;">体験の進め方</h3>
+    <ol>
+      <li>下の赤いボタンを押すと、全画面で「警告画面」が表示されます</li>
+      <li><strong>キーボードショートカット</strong>で閉じる練習をしてください</li>
+      <li>慣れたら、画面上の「✕」ボタンは押さずに、ショートカットで閉じてみる</li>
+    </ol>
+    <div style="text-align: center; margin: 1.5rem 0 0.5rem;">
+      <button class="btn big" onclick="startScam()">⚠ サポート詐欺の警告画面を体験する</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0; color: var(--c-red);">▌3つの脱出ショートカット（Windows）</h3>
+    <ol style="line-height: 2.4;">
+      <li><span class="keycap">Ctrl</span>+<span class="keycap">W</span> ── ブラウザのタブを閉じる（軽度）</li>
+      <li><span class="keycap">Alt</span>+<span class="keycap">F4</span> ── ウィンドウ自体を閉じる（中度）</li>
+      <li>
+        <span class="keycap">Ctrl</span>+<span class="keycap">Shift</span>+<span class="keycap">Esc</span> ── タスクマネージャーを起動<br>
+        <span style="font-size: 0.88rem; color: var(--c-gray-d);">→ ブラウザを選んで「タスクの終了」</span>
+      </li>
+    </ol>
+    <hr class="divider">
+    <p style="margin: 0; font-size: 0.92rem;">
+      <strong>Macの場合：</strong> <span class="keycap">⌘</span>+<span class="keycap">W</span> / <span class="keycap">⌘</span>+<span class="keycap">Q</span> / <span class="keycap">⌘</span>+<span class="keycap">Option</span>+<span class="keycap">Esc</span>（強制終了）<br>
+      <strong>スマホの場合：</strong> アプリスイッチャー（履歴）から該当タブをスワイプで閉じる
+    </p>
+  </div>
+
+  <div class="card" style="background: var(--c-yellow); border: 2px solid var(--c-red);">
+    <strong style="color: var(--c-red);">⚠ 本物のサポート詐欺に遭ったら、絶対にやらないこと</strong>
+    <ul class="checklist" style="margin: 0.5rem 0 0;">
+      <li>画面に表示された電話番号には絶対にかけない</li>
+      <li>「リモートサポート」と称するソフトをインストールしない</li>
+      <li>クレジットカード番号・口座情報を絶対に入力しない</li>
+      <li>本当に感染が心配なら、IPA「サポート詐欺対応ツール」で確認</li>
+    </ul>
+  </div>
+
+  <div style="text-align: center; margin: 1.5rem 0;">
+    <a href="index.html" class="btn outline">← メニューへ戻る</a>
+  </div>
+
+  <div class="footer">情報セキュリティ研修 ─ NAWAGATE株式会社</div>
+</div>
+
+<!-- 擬似警告オーバーレイ -->
+<div id="scamOverlay">
+  <div class="fake-close" onclick="alert('閉じれない…！ ショートカットを試してください');">✕</div>
+
+  <div class="ms-bar">
+    🛡 Windows Defender ─ セキュリティセンター（※これは練習用の偽画面）
+  </div>
+
+  <div class="scam-box">
+    <h2>⚠ セキュリティ警告</h2>
+    <p>あなたのコンピュータは <strong>5つのウイルス</strong> に感染しています</p>
+    <p class="err">エラーコード: 0x80070571</p>
+    <p>個人情報・パスワード・銀行口座情報が漏洩する危険があります。</p>
+    <p>今すぐ Microsoft サポートへお電話ください</p>
+    <div class="phone">📞 0120-XXX-XXXX</div>
+    <p style="font-size: 0.85rem; color: #666;">通話料無料 ／ 24時間対応</p>
+  </div>
+
+  <div class="escape-hint">
+    <h3>🎓 ここから「脱出」してみましょう</h3>
+    <p>キーボードで次のいずれかを試してください：</p>
+    <p style="margin: 0.5rem 0;">
+      ・<span class="keycap">Ctrl</span>+<span class="keycap">W</span><br>
+      ・<span class="keycap">Alt</span>+<span class="keycap">F4</span><br>
+      ・<span class="keycap">Ctrl</span>+<span class="keycap">Shift</span>+<span class="keycap">Esc</span>
+    </p>
+    <p style="font-size: 0.92rem; color: #555; margin: 0.5rem 0 0;">
+      ※ この練習画面はキーボードで <span class="keycap">Esc</span> を押すか、下の緑ボタンで終了します。<br>
+      本物のサポート詐欺はEscが効かないので、上の3つを使ってください。
+    </p>
+    <div style="text-align: center;">
+      <button class="escape-btn" onclick="closeScam()">✓ 脱出（練習終了）</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function startScam() {
+  const o = document.getElementById('scamOverlay');
+  o.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+  // 警告音
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    let times = 0;
+    const beep = () => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.frequency.value = 1000;
+      gain.gain.value = 0.05;
+      osc.connect(gain).connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.15);
+      times++;
+      if (times < 4 && o.style.display === 'block') setTimeout(beep, 400);
+    };
+    beep();
+  } catch(e) {}
+  // Esc で閉じる（実際の詐欺では効かないが、練習用に開放）
+  document.addEventListener('keydown', escListener);
+}
+function escListener(e) {
+  if (e.key === 'Escape') closeScam();
+}
+function closeScam() {
+  document.getElementById('scamOverlay').style.display = 'none';
+  document.body.style.overflow = '';
+  document.removeEventListener('keydown', escListener);
+}
+</script>
+</body>
+</html>
