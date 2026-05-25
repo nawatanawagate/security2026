@@ -122,7 +122,7 @@
       <li>画面上の電話番号には絶対に注目しないこと（本物では絶対にかけない）</li>
     </ol>
     <div style="text-align: center; margin: 1.5rem 0 0.5rem;">
-      <button class="btn big" onclick="startScam()">⚠ 詐欺画面を体験する</button>
+      <button class="btn big" onclick="startScam()">⚠ 詐欺画面を体験する（音が出ます）</button>
     </div>
   </div>
 
@@ -190,83 +190,34 @@
 
 <script>
 let audioCtx = null;
-let bgmActive = false;
-let melodyTimer = null;
-let bassTimer = null;
-
-// 戦闘BGM風メロディ（マイナーキー・8bit風・オリジナル）
-// 形式: [周波数Hz, 拍数(1=16分音符)]
-const MELODY = [
-  // Phrase 1
-  [440,1],[440,1],[523,1],[587,1],[659,2],[587,1],[523,1],[440,2],[0,1],[440,1],
-  [523,1],[622,1],[698,2],[659,1],[587,1],[523,2],[0,1],[440,1],
-  // Phrase 2 (緊迫の上昇)
-  [659,1],[587,1],[659,1],[698,1],[784,2],[698,1],[659,1],[587,2],[0,2],
-  [523,1],[587,1],[622,1],[659,1],[698,2],[622,1],[587,1],[523,4],[0,2],
-];
-
-// ベースライン（オクターブ下のルート連打）
-const BASS = [
-  [110,2],[110,2],[110,2],[110,2], // A
-  [110,2],[110,2],[110,2],[110,2],
-  [98,2],[98,2],[98,2],[98,2],     // G
-  [82,2],[82,2],[110,2],[110,2],   // E -> A
-];
-
-const TEMPO_MS = 110; // 1拍 = 110ms（約140BPM相当）
-
-function playNote(freq, durBeats, type, vol) {
-  if (freq === 0) return;
-  const osc = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
-  const dur = durBeats * TEMPO_MS / 1000;
-  osc.frequency.value = freq;
-  osc.type = type;
-  const now = audioCtx.currentTime;
-  gain.gain.setValueAtTime(0.001, now);
-  gain.gain.exponentialRampToValueAtTime(vol, now + 0.005);
-  gain.gain.exponentialRampToValueAtTime(0.001, now + dur * 0.9);
-  osc.connect(gain).connect(audioCtx.destination);
-  osc.start(now);
-  osc.stop(now + dur);
-}
-
-function startMelodyLoop() {
-  let idx = 0;
-  const tick = () => {
-    if (!bgmActive) return;
-    const [freq, beats] = MELODY[idx % MELODY.length];
-    playNote(freq, beats, 'square', 0.08);
-    idx++;
-    melodyTimer = setTimeout(tick, beats * TEMPO_MS);
-  };
-  tick();
-}
-
-function startBassLoop() {
-  let idx = 0;
-  const tick = () => {
-    if (!bgmActive) return;
-    const [freq, beats] = BASS[idx % BASS.length];
-    playNote(freq, beats, 'triangle', 0.12);
-    idx++;
-    bassTimer = setTimeout(tick, beats * TEMPO_MS);
-  };
-  tick();
-}
+let beepActive = false;
 
 function startScam() {
   const o = document.getElementById('scamOverlay');
   o.style.display = 'block';
   document.body.style.overflow = 'hidden';
+  // 警告音をループ再生（オーバーレイ表示中はずっと鳴る）
   try {
     if (!audioCtx) {
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     }
     if (audioCtx.state === 'suspended') audioCtx.resume();
-    bgmActive = true;
-    startMelodyLoop();
-    startBassLoop();
+    beepActive = true;
+    const beep = () => {
+      if (!beepActive || o.style.display !== 'block') return;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      // 緊迫感を出すため高低2音を交互
+      const isHigh = (Date.now() / 400) % 2 < 1;
+      osc.frequency.value = isHigh ? 1200 : 800;
+      osc.type = 'square';
+      gain.gain.value = 0.06;
+      osc.connect(gain).connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.18);
+      setTimeout(beep, 350);
+    };
+    beep();
   } catch(e) {}
   document.addEventListener('keydown', escListener);
 }
@@ -276,9 +227,7 @@ function escListener(e) {
 function closeScam() {
   document.getElementById('scamOverlay').style.display = 'none';
   document.body.style.overflow = '';
-  bgmActive = false;
-  if (melodyTimer) clearTimeout(melodyTimer);
-  if (bassTimer) clearTimeout(bassTimer);
+  beepActive = false;
   document.removeEventListener('keydown', escListener);
 }
 </script>
