@@ -56,6 +56,48 @@
   font-weight: 700;
   margin-left: 0.4rem;
 }
+
+/* 研修後セクション（IPA公式診断） */
+.section-divider {
+  margin: 2rem 0 1rem;
+  text-align: center;
+  position: relative;
+}
+.section-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--c-gray-l);
+  z-index: 0;
+}
+.section-divider span {
+  background: var(--c-bg-soft);
+  padding: 0 1rem;
+  color: var(--c-navy);
+  font-size: 0.9rem;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+}
+.menu-item.official {
+  border-left-color: var(--c-navy);
+  background: #fff;
+}
+.menu-item.official .no {
+  background: var(--c-navy);
+}
+.menu-item.official .badge {
+  background: var(--c-navy);
+  color: #fff;
+}
+.menu-item.official .ext-icon {
+  font-size: 0.85rem;
+  color: var(--c-navy);
+  margin-left: 0.3rem;
+}
 </style>
 </head>
 <body>
@@ -90,6 +132,18 @@
   <a href="sns-fake.html" class="menu-item">
     <span class="no">4</span><h3>SNSなりすましアカウント</h3><span class="badge">県内6件</span>
     <p>2つの「公式アカウント」。どちらが本物か、見分けられますか？</p>
+  </a>
+
+  <div class="section-divider"><span>研修後の「次の一歩」</span></div>
+
+  <a href="https://www.ipa.go.jp/archive/security/guide/sme/5minutes.html" target="_blank" rel="noopener noreferrer" class="menu-item official">
+    <span class="no">5</span><h3>5分でできる！情報セキュリティ自社診断<span class="ext-icon">↗</span></h3><span class="badge">IPA公式</span>
+    <p>独立行政法人 情報処理推進機構（IPA）が提供する無料の自己診断ツール。25問に答えるだけで、自社のセキュリティ対策状況を数値化・可視化できます。商工会自身の点検にも、会員企業への案内にも使えます。</p>
+  </a>
+
+  <a href="https://www.ipa.go.jp/security/security-action/" target="_blank" rel="noopener noreferrer" class="menu-item official">
+    <span class="no">6</span><h3>SECURITY ACTION<span class="ext-icon">↗</span></h3><span class="badge">IPA公式</span>
+    <p>中小企業向けの自己宣言制度。一つ星・二つ星のロゴを取得でき、IT導入補助金の加点要件にもなります。商工会から会員企業への普及啓発に最適。</p>
   </a>
 
   <div class="footer">
