@@ -8,16 +8,135 @@
 <title>研修用ページ</title>
 <link rel="stylesheet" href="common.css">
 <style>
+body { background: #f4f4f2; }
+.hero {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+  color: #fff;
+  padding: 2.2rem 1.2rem 2.6rem;
+  text-align: center;
+  margin-bottom: 0;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--c-red) 0%, var(--c-red) 50%, var(--c-navy-h) 50%, var(--c-navy-h) 100%);
+}
+.hero .org {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin: 0 0 0.6rem;
+  letter-spacing: 0.5px;
+}
+.hero h1 {
+  font-size: 1.9rem;
+  margin: 0 0 0.5rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+.hero .subtitle {
+  font-size: 1rem;
+  color: #ddd;
+  margin: 0 0 1rem;
+  font-weight: 400;
+}
+.hero .meta {
+  display: inline-block;
+  background: rgba(255,255,255,0.1);
+  padding: 0.5rem 1.2rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: #fff;
+  margin: 0.3rem;
+}
+.hero .nawagate {
+  margin-top: 1.5rem;
+  font-size: 0.82rem;
+  color: #aaa;
+  border-top: 1px solid #444;
+  padding-top: 0.9rem;
+}
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 1.4rem; letter-spacing: 1px; }
+  .hero .subtitle { font-size: 0.88rem; }
+}
+
+.section-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.3rem 1.3rem 1rem;
+  margin: 1.2rem 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+.section-card h2 {
+  margin: 0 0 0.4rem;
+  font-size: 1.15rem;
+  border-left: 5px solid var(--c-red);
+  padding-left: 0.7rem;
+  line-height: 1.4;
+}
+.section-card .section-sub {
+  margin: 0 0 1rem;
+  font-size: 0.88rem;
+  color: var(--c-gray-d);
+  padding-left: 0.9rem;
+}
+
+.toc {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.2rem 1.3rem;
+  margin: 1.2rem 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+.toc h2 {
+  margin: 0 0 0.8rem;
+  font-size: 1rem;
+  color: var(--c-navy);
+  letter-spacing: 1px;
+}
+.toc ol {
+  margin: 0;
+  padding-left: 1.2rem;
+  line-height: 1.9;
+  font-size: 0.95rem;
+}
+.toc ol a {
+  color: var(--c-black);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--c-gray-l);
+}
+.toc ol a:hover {
+  color: var(--c-red);
+  border-bottom-color: var(--c-red);
+}
+.toc .toc-tag {
+  display: inline-block;
+  background: var(--c-red);
+  color: #fff;
+  font-size: 0.7rem;
+  padding: 1px 6px;
+  border-radius: 8px;
+  margin-left: 0.4rem;
+  vertical-align: middle;
+  font-weight: 700;
+}
+.toc .toc-tag.navy { background: var(--c-navy); }
+
 .menu-item {
   display: block;
   background: var(--c-white);
   border-left: 6px solid var(--c-red);
-  padding: 1.1rem 1.2rem;
-  margin: 0.8rem 0;
+  padding: 1rem 1.1rem;
+  margin: 0.6rem 0;
   text-decoration: none;
   color: var(--c-black);
   border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
   transition: transform 0.15s, box-shadow 0.15s;
 }
 .menu-item:hover, .menu-item:active {
@@ -28,133 +147,169 @@
   display: inline-block;
   background: var(--c-red);
   color: #fff;
-  width: 32px;
-  height: 32px;
-  line-height: 32px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
   text-align: center;
   border-radius: 50%;
   font-weight: 700;
-  margin-right: 0.6rem;
-  font-size: 0.95rem;
+  margin-right: 0.55rem;
+  font-size: 0.9rem;
 }
 .menu-item h3 {
-  margin: 0 0 0.3rem;
-  font-size: 1.1rem;
+  margin: 0 0 0.25rem;
+  font-size: 1.05rem;
   display: inline-block;
+  vertical-align: middle;
 }
 .menu-item p {
   margin: 0.3rem 0 0;
   color: var(--c-gray-d);
-  font-size: 0.92rem;
+  font-size: 0.9rem;
 }
 .menu-item .badge {
   background: var(--c-yellow);
   color: var(--c-red);
   padding: 1px 8px;
   border-radius: 10px;
-  font-size: 0.75rem;
+  font-size: 0.74rem;
   font-weight: 700;
   margin-left: 0.4rem;
+  vertical-align: middle;
 }
 
-/* 研修後セクション（IPA公式診断） */
-.section-divider {
-  margin: 2rem 0 1rem;
-  text-align: center;
-  position: relative;
-}
-.section-divider::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: var(--c-gray-l);
-  z-index: 0;
-}
-.section-divider span {
-  background: var(--c-bg-soft);
-  padding: 0 1rem;
-  color: var(--c-navy);
-  font-size: 0.9rem;
-  font-weight: 700;
-  position: relative;
-  z-index: 1;
-}
 .menu-item.official {
   border-left-color: var(--c-navy);
-  background: #fff;
 }
-.menu-item.official .no {
-  background: var(--c-navy);
-}
-.menu-item.official .badge {
-  background: var(--c-navy);
-  color: #fff;
-}
+.menu-item.official .no { background: var(--c-navy); }
+.menu-item.official .badge { background: var(--c-navy); color: #fff; }
 .menu-item.official .ext-icon {
   font-size: 0.85rem;
   color: var(--c-navy);
   margin-left: 0.3rem;
 }
+
+.safety-note {
+  background: var(--c-yellow);
+  border: 2px solid var(--c-red);
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  margin: 1rem 0;
+}
+
+.footer-credit {
+  text-align: center;
+  color: var(--c-gray-d);
+  font-size: 0.82rem;
+  margin: 2.5rem 0 1.5rem;
+  padding: 1.2rem 0.5rem;
+  border-top: 2px solid var(--c-red);
+  background: #fff;
+  border-radius: 6px;
+}
+.footer-credit strong { color: var(--c-black); }
 </style>
 </head>
 <body>
-<div class="container">
-  <div class="page-header">
-    <h1>4大インシデント擬似体験</h1>
-    <p class="sub">商工会で実際に起きた事案を、手元で安全に体験してみましょう</p>
-  </div>
 
-  <div class="card" style="background: var(--c-yellow); border: 2px solid var(--c-red);">
-    <strong style="color: var(--c-red);">⚠ 体験用の安全なページです</strong>
-    <p style="margin: 0.4rem 0 0; font-size: 0.92rem;">
-      実際の攻撃と同じ仕掛けは含まれていません。安心してクリックしてください。
+<div class="hero">
+  <p class="org">鹿児島県商工会連合会  令和8年度 職種別研修会</p>
+  <h1>情報セキュリティ研修</h1>
+  <p class="subtitle">商工会で実際に起きたインシデントと、その対処方法</p>
+  <div>
+    <span class="meta">📅 令和8年6月1日（月）</span>
+    <span class="meta">📍 ホテルレクストン鹿児島</span>
+  </div>
+  <div class="nawagate">
+    講師：NAWAGATE株式会社  代表取締役 縄田 倫靖<br>
+    https://nawagate.com
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="safety-note">
+    <strong style="color: var(--c-red);">⚠ このページは研修参加者向けの体験用ページです</strong>
+    <p style="margin: 0.4rem 0 0; font-size: 0.9rem;">
+      実際の攻撃と同じ仕掛けは含まれていません。安心して各リンクをクリックしてください。
     </p>
   </div>
 
-  <a href="president.html" class="menu-item">
-    <span class="no">1</span><h3>会長なりすましメール</h3><span class="badge">県内13件</span>
-    <p>「会長」を装ったメールが届いた。あなたはどこで気づきますか？</p>
-  </a>
-
-  <a href="support-scam.html" class="menu-item">
-    <span class="no">2</span><h3>サポート詐欺の警告画面</h3><span class="badge">県内7件</span>
-    <p>突然の「ウイルス警告」全画面。落ち着いて閉じる方法を体験。<br><strong style="color: var(--c-red);">※ PCでの体験を推奨</strong></p>
-  </a>
-
-  <a href="phishing.html" class="menu-item">
-    <span class="no">3</span><h3>フィッシング詐欺の偽サイト</h3><span class="badge">URL見抜き</span>
-    <p>本物そっくりのAmazonログイン画面。5つの違いを見つけられますか？</p>
-  </a>
-
-  <a href="sns-fake.html" class="menu-item">
-    <span class="no">4</span><h3>SNSなりすましアカウント</h3><span class="badge">県内6件</span>
-    <p>2つの「公式アカウント」。どちらが本物か、見分けられますか？</p>
-  </a>
-
-  <div class="section-divider"><span>研修後の「次の一歩」</span></div>
-
-  <a href="self-check.html" class="menu-item">
-    <span class="no">5</span><h3>商工会向け 簡易セキュリティ診断</h3><span class="badge">即結果</span>
-    <p>本研修オリジナルの16問診断。チェックを入れていくと自動採点され、A〜D評価＋領域別スコア＋優先取組項目が表示されます。所要約5分。</p>
-  </a>
-
-  <a href="https://www.ipa.go.jp/archive/security/guide/sme/5minutes.html" target="_blank" rel="noopener noreferrer" class="menu-item official">
-    <span class="no">6</span><h3>5分でできる！情報セキュリティ自社診断<span class="ext-icon">↗</span></h3><span class="badge">IPA公式</span>
-    <p>独立行政法人 情報処理推進機構（IPA）が提供する公式の自己診断ツール。25問・より詳細な評価。商工会自身の点検にも、会員企業への案内にも使えます。</p>
-  </a>
-
-  <a href="https://www.ipa.go.jp/security/security-action/" target="_blank" rel="noopener noreferrer" class="menu-item official">
-    <span class="no">7</span><h3>SECURITY ACTION<span class="ext-icon">↗</span></h3><span class="badge">IPA公式</span>
-    <p>中小企業向けの自己宣言制度。一つ星・二つ星のロゴを取得でき、IT導入補助金の加点要件にもなります。商工会から会員企業への普及啓発に最適。</p>
-  </a>
-
-  <div class="footer">
-    令和8年度 鹿児島県商工会連合会 職種別研修会<br>
-    情報セキュリティ研修 ─ NAWAGATE株式会社
+  <!-- 目次 -->
+  <div class="toc">
+    <h2>📋 CONTENTS ─ このページの内容</h2>
+    <ol>
+      <li><a href="#part1">4大インシデント擬似体験</a><span class="toc-tag">体験</span>
+        <ol style="font-size:0.88rem; padding-left:1.2rem; margin:0.2rem 0;">
+          <li><a href="#exp1">会長なりすましメール</a></li>
+          <li><a href="#exp2">サポート詐欺の警告画面</a></li>
+          <li><a href="#exp3">フィッシング詐欺の偽サイト</a></li>
+          <li><a href="#exp4">SNSなりすましアカウント</a></li>
+        </ol>
+      </li>
+      <li><a href="#part2">研修後の「次の一歩」</a><span class="toc-tag navy">診断・公式</span>
+        <ol style="font-size:0.88rem; padding-left:1.2rem; margin:0.2rem 0;">
+          <li><a href="#tool5">商工会向け 簡易セキュリティ診断</a></li>
+          <li><a href="#tool6">IPA「5分でできる！情報セキュリティ自社診断」</a></li>
+          <li><a href="#tool7">SECURITY ACTION（自己宣言制度）</a></li>
+        </ol>
+      </li>
+    </ol>
   </div>
+
+  <!-- セクション①：4大体験 -->
+  <div class="section-card" id="part1">
+    <h2>Part 1 ─ 4大インシデント擬似体験</h2>
+    <p class="section-sub">商工会で実際に起きた事案を、手元で安全に体験してみましょう</p>
+
+    <a href="president.html" id="exp1" class="menu-item">
+      <span class="no">1</span><h3>会長なりすましメール</h3><span class="badge">県内13件</span>
+      <p>「会長」を装ったメールが届いた。あなたはどこで気づきますか？</p>
+    </a>
+
+    <a href="support-scam.html" id="exp2" class="menu-item">
+      <span class="no">2</span><h3>サポート詐欺の警告画面</h3><span class="badge">県内7件</span>
+      <p>突然の「ウイルス警告」全画面。落ち着いて閉じる方法を体験。<br><strong style="color: var(--c-red);">※ PCでの体験を推奨</strong></p>
+    </a>
+
+    <a href="phishing.html" id="exp3" class="menu-item">
+      <span class="no">3</span><h3>フィッシング詐欺の偽サイト</h3><span class="badge">URL見抜き</span>
+      <p>本物そっくりのAmazonログイン画面。5つの違いを見つけられますか？</p>
+    </a>
+
+    <a href="sns-fake.html" id="exp4" class="menu-item">
+      <span class="no">4</span><h3>SNSなりすましアカウント</h3><span class="badge">県内6件</span>
+      <p>2つの「公式アカウント」。どちらが本物か、見分けられますか？</p>
+    </a>
+  </div>
+
+  <!-- セクション②：研修後 -->
+  <div class="section-card" id="part2">
+    <h2>Part 2 ─ 研修後の「次の一歩」</h2>
+    <p class="section-sub">体験で学んだことを、自社・自組織の対策に落とし込みましょう</p>
+
+    <a href="self-check.html" id="tool5" class="menu-item">
+      <span class="no">5</span><h3>商工会向け 簡易セキュリティ診断</h3><span class="badge">即結果</span>
+      <p>本研修オリジナルの16問診断。チェックを入れていくと自動採点され、A〜D評価＋領域別スコア＋優先取組項目が表示されます。所要約5分。</p>
+    </a>
+
+    <a href="https://www.ipa.go.jp/archive/security/guide/sme/5minutes.html" target="_blank" rel="noopener noreferrer" id="tool6" class="menu-item official">
+      <span class="no">6</span><h3>5分でできる！情報セキュリティ自社診断<span class="ext-icon">↗</span></h3><span class="badge">IPA公式</span>
+      <p>独立行政法人 情報処理推進機構（IPA）が提供する公式の自己診断ツール。25問・より詳細な評価。商工会自身の点検にも、会員企業への案内にも使えます。</p>
+    </a>
+
+    <a href="https://www.ipa.go.jp/security/security-action/" target="_blank" rel="noopener noreferrer" id="tool7" class="menu-item official">
+      <span class="no">7</span><h3>SECURITY ACTION<span class="ext-icon">↗</span></h3><span class="badge">IPA公式</span>
+      <p>中小企業向けの自己宣言制度。一つ星・二つ星のロゴを取得でき、IT導入補助金の加点要件にもなります。商工会から会員企業への普及啓発に最適。</p>
+    </a>
+  </div>
+
+  <div class="footer-credit">
+    <strong>令和8年度 鹿児島県商工会連合会 職種別研修会</strong><br>
+    情報セキュリティ研修 ─ NAWAGATE株式会社<br>
+    <span style="font-size:0.78rem; color:#999;">本ページは研修参加者向けの教材として公開されています</span>
+  </div>
+
 </div>
 </body>
 </html>
