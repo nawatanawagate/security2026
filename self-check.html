@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>商工会向け簡易セキュリティ診断 ─ 研修用</title>
+<link rel="stylesheet" href="common.css">
+<style>
+.section-title {
+  background: var(--c-navy);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin: 1.5rem 0 0.8rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+.q {
+  background: #fff;
+  border-radius: 6px;
+  padding: 0.9rem 1rem;
+  margin: 0.6rem 0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.q .qtext {
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  font-size: 0.98rem;
+}
+.q .qhint {
+  color: var(--c-gray-d);
+  font-size: 0.82rem;
+  margin: 0 0 0.5rem;
+}
+.opts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+@media (max-width: 600px) {
+  .opts { grid-template-columns: repeat(2, 1fr); }
+}
+.opts label {
+  border: 1px solid var(--c-gray-l);
+  border-radius: 4px;
+  padding: 0.45rem 0.3rem;
+  text-align: center;
+  font-size: 0.85rem;
+  cursor: pointer;
+  background: #fafafa;
+  transition: all 0.15s;
+}
+.opts input { display: none; }
+.opts label:hover { background: #f0f0f0; }
+.opts input:checked + span {
+  display: inline-block;
+}
+.opts label:has(input:checked) {
+  background: var(--c-red);
+  color: #fff;
+  border-color: var(--c-red);
+  font-weight: 700;
+}
+
+#resultArea { display: none; }
+.score-box {
+  text-align: center;
+  background: #fff;
+  padding: 1.5rem 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.score-grade {
+  display: inline-block;
+  width: 80px; height: 80px;
+  line-height: 80px;
+  font-size: 2.4rem;
+  font-weight: 700;
+  border-radius: 50%;
+  color: #fff;
+  margin: 0.4rem;
+}
+.grade-A { background: #2e7d32; }
+.grade-B { background: #689f38; }
+.grade-C { background: #f57c00; }
+.grade-D { background: var(--c-red); }
+.score-num { font-size: 1.3rem; font-weight: 700; margin: 0.5rem 0; }
+.advice-card {
+  background: #fff;
+  border-left: 4px solid var(--c-red);
+  padding: 1rem 1.2rem;
+  margin: 0.8rem 0;
+  border-radius: 4px;
+}
+.progress-bar {
+  height: 6px;
+  background: #e0e0e0;
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 0.5rem 0 1rem;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--c-red);
+  transition: width 0.3s;
+}
+.progress-text {
+  text-align: right;
+  font-size: 0.85rem;
+  color: var(--c-gray-d);
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="page-header">
+    <span class="tag navy">⑤ 自己診断</span>
+    <h1 style="margin-top: 0.4rem;">商工会向け 簡易セキュリティ診断</h1>
+    <p class="sub">16問・約5分 ／ あなたの商工会の現在地を数値化します</p>
+  </div>
+
+  <div class="card" style="background: var(--c-yellow); border-left: 4px solid var(--c-navy);">
+    <strong>このツールについて</strong>
+    <p style="margin: 0.4rem 0 0; font-size: 0.92rem;">
+      本研修オリジナルの簡易診断です。商工会の業務に即した16問で構成されています。<br>
+      より詳細なIPA公式診断（25問）も合わせてご活用ください。<br>
+      <a href="https://www.ipa.go.jp/archive/security/guide/sme/5minutes.html" target="_blank" rel="noopener" style="color: var(--c-blue);">▶ IPA「5分でできる！情報セキュリティ自社診断」（公式・別タブ）</a>
+    </p>
+  </div>
+
+  <div class="progress-text"><span id="answered">0</span> / 16 問</div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0"></div></div>
+
+  <form id="checkForm"></form>
+
+  <div style="text-align: center; margin: 1.5rem 0;">
+    <button class="btn big" type="button" onclick="calcScore()">📊 結果を見る</button>
+  </div>
+
+  <div id="resultArea">
+    <hr class="divider">
+    <div class="score-box">
+      <div id="gradeBadge" class="score-grade">-</div>
+      <div class="score-num"><span id="scoreNum">0</span> / 32点</div>
+      <h2 id="scoreTitle" style="margin: 0.5rem 0;">-</h2>
+      <p id="scoreMsg" style="color: var(--c-gray-d); margin: 0;">-</p>
+    </div>
+
+    <h3 style="color: var(--c-red);">▌領域別スコア</h3>
+    <div id="categoryScores"></div>
+
+    <h3 style="color: var(--c-red);">▌優先的に取り組むべきこと</h3>
+    <div id="advices"></div>
+
+    <div class="card" style="background: var(--c-yellow); border: 2px solid var(--c-red);">
+      <strong>次のステップ</strong>
+      <ul class="checklist" style="margin: 0.5rem 0 0;">
+        <li>このスコアをスクショ／メモして職員間で共有</li>
+        <li>0点・1点だった項目から優先して着手</li>
+        <li>3ヶ月後にもう一度診断 ── 改善を可視化</li>
+        <li><a href="https://www.ipa.go.jp/security/security-action/" target="_blank" rel="noopener" style="color: var(--c-blue);">SECURITY ACTION 一つ星宣言</a>で取り組みを対外的に表明</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="text-align: center; margin: 1.5rem 0;">
+    <a href="index.html" class="btn outline">← メニューへ戻る</a>
+    <button class="btn secondary" type="button" onclick="resetForm()">最初からやり直す</button>
+  </div>
+
+  <div class="footer">情報セキュリティ研修 ─ NAWAGATE株式会社</div>
+</div>
+
+<script>
+// 商工会向け独自診断項目（IPA公式とは別の独自設計）
+const QUESTIONS = [
+  { cat: 'A. パスワード・認証', q: 'パスワードは12文字以上で記号を含み、サービスごとに変えていますか？',
+    hint: '同じパスワードを使い回している場合は「していない」を選択' },
+  { cat: 'A. パスワード・認証', q: 'パスワードマネージャー（Bitwarden等）を職員全員が使っていますか？',
+    hint: 'メモ帳・付箋・ブラウザの保存パスワードだけは「していない」' },
+  { cat: 'A. パスワード・認証', q: 'すべての業務サービスで多要素認証（MFA）を有効にしていますか？',
+    hint: 'メール／クラウド／会計ソフト等のログイン時' },
+
+  { cat: 'B. ソフトウェア管理', q: '業務PCのOS・アプリは自動更新がONで、常に最新状態ですか？',
+    hint: '「後で再起動」を放置していないか' },
+  { cat: 'B. ソフトウェア管理', q: 'ウイルス対策ソフトを全PCに導入し、定義ファイルは最新ですか？',
+    hint: 'Windows Defender含む。期限切れがないか' },
+  { cat: 'B. ソフトウェア管理', q: 'サポート切れのOS（Windows10など）を業務利用していませんか？',
+    hint: 'サポート切れは「していない」相当（=リスクあり）' },
+
+  { cat: 'C. メール・通信対策', q: '不審メールへの対応「止まる→確認→相談」のルールを職員間で共有していますか？',
+    hint: '相談しやすい雰囲気があるか' },
+  { cat: 'C. メール・通信対策', q: '役員からのメール依頼は必ず電話で本人確認するルールがありますか？',
+    hint: '会長なりすまし対策。県内で13件の被害あり' },
+  { cat: 'C. メール・通信対策', q: '一斉送信時のBCC/CCチェック・ダブルチェック手順がありますか？',
+    hint: 'メール誤送信防止' },
+  { cat: 'C. メール・通信対策', q: 'サポート詐欺の警告画面が出た時の対処法（Ctrl+Shift+Esc等）を職員全員が知っていますか？',
+    hint: 'PCの強制終了でしか対処できないと答える人がいる場合は「一部」' },
+
+  { cat: 'D. データ・端末管理', q: 'USB等の外部メディアは事前にウイルススキャンをしてから接続しますか？',
+    hint: '使い回し・素性不明USBは禁止できているか' },
+  { cat: 'D. データ・端末管理', q: '業務データのバックアップを定期的に取り、復元テストもしていますか？',
+    hint: 'ランサムウェア対策の最終防衛線' },
+  { cat: 'D. データ・端末管理', q: '退職者のアカウント・権限を退職日に削除する手順がありますか？',
+    hint: '退職者の情報持出対策' },
+
+  { cat: 'E. 教育・SNS・体制', q: '全職員に情報セキュリティ研修を年1回以上実施していますか？',
+    hint: '一斉メールでの注意喚起だけは「一部」' },
+  { cat: 'E. 教育・SNS・体制', q: '商工会の公式SNSがあり、公式Webサイトから誘導動線（リンク）を張っていますか？',
+    hint: 'なりすまし対策。サイトにSNSリンクがない場合は「していない」' },
+  { cat: 'E. 教育・SNS・体制', q: 'インシデント発生時の連絡フロー（誰に・いつまでに・何を）が明文化されていますか？',
+    hint: '紙1枚でも明文化されていればOK' },
+];
+
+const OPTIONS = [
+  { label: '実施', value: 2 },
+  { label: '一部', value: 1 },
+  { label: '未実施', value: 0 },
+  { label: '不明', value: 0 },
+];
+
+const form = document.getElementById('checkForm');
+QUESTIONS.forEach((q, i) => {
+  const div = document.createElement('div');
+  div.className = 'q';
+  div.innerHTML = `
+    <p class="qtext">Q${i + 1}. ${q.q}</p>
+    <p class="qhint">${q.hint}</p>
+    <div class="opts">
+      ${OPTIONS.map((o, j) => `
+        <label><input type="radio" name="q${i}" value="${o.value}" data-idx="${i}"><span>${o.label}</span></label>
+      `).join('')}
+    </div>
+  `;
+  form.appendChild(div);
+});
+
+// 進捗バー更新
+form.addEventListener('change', (e) => {
+  if (e.target.type === 'radio') {
+    const answered = new Set();
+    document.querySelectorAll('#checkForm input[type=radio]:checked').forEach(el => {
+      answered.add(el.name);
+    });
+    const n = answered.size;
+    document.getElementById('answered').textContent = n;
+    document.getElementById('progressFill').style.width = (n / QUESTIONS.length * 100) + '%';
+  }
+});
+
+function calcScore() {
+  const total = QUESTIONS.length * 2;
+  let score = 0;
+  const catScore = {};
+  const catMax = {};
+  const lowItems = [];
+
+  QUESTIONS.forEach((q, i) => {
+    const sel = document.querySelector(`input[name=q${i}]:checked`);
+    const v = sel ? Number(sel.value) : 0;
+    score += v;
+    catScore[q.cat] = (catScore[q.cat] || 0) + v;
+    catMax[q.cat] = (catMax[q.cat] || 0) + 2;
+    if (v <= 1) lowItems.push({ i, q: q.q, v });
+  });
+
+  // グレード判定
+  let grade, gradeClass, title, msg;
+  const pct = score / total;
+  if (pct >= 0.88) { grade = 'A'; gradeClass = 'grade-A'; title = '安全レベル'; msg = '優秀です。継続して維持＋会員企業への展開を。'; }
+  else if (pct >= 0.69) { grade = 'B'; gradeClass = 'grade-B'; title = '注意レベル'; msg = '基本は押さえています。弱点を補強しましょう。'; }
+  else if (pct >= 0.47) { grade = 'C'; gradeClass = 'grade-C'; title = '警戒レベル'; msg = '対策に穴があります。優先順に着手を。'; }
+  else { grade = 'D'; gradeClass = 'grade-D'; title = '危険レベル'; msg = '早急に着手必要。事務局長から職員へ即時周知を。'; }
+
+  document.getElementById('scoreNum').textContent = score;
+  document.getElementById('scoreTitle').textContent = title;
+  document.getElementById('scoreMsg').textContent = msg;
+  const badge = document.getElementById('gradeBadge');
+  badge.textContent = grade;
+  badge.className = 'score-grade ' + gradeClass;
+
+  // 領域別
+  const catHtml = Object.keys(catScore).map(c => {
+    const s = catScore[c], m = catMax[c], p = Math.round(s / m * 100);
+    const color = p >= 80 ? '#2e7d32' : (p >= 50 ? '#f57c00' : '#c00000');
+    return `
+      <div style="margin: 0.5rem 0;">
+        <div style="display:flex; justify-content:space-between; font-size:0.92rem;">
+          <strong>${c}</strong>
+          <span style="color:${color}; font-weight:700;">${s}/${m}点 (${p}%)</span>
+        </div>
+        <div class="progress-bar" style="margin:0.2rem 0 0;"><div class="progress-fill" style="width:${p}%; background:${color};"></div></div>
+      </div>
+    `;
+  }).join('');
+  document.getElementById('categoryScores').innerHTML = catHtml;
+
+  // 個別アドバイス
+  const adviceHtml = lowItems.length === 0
+    ? '<div class="advice-card" style="border-left-color: #2e7d32;"><strong>すべての項目で「実施」と回答されました。</strong><br>継続的な点検と、会員企業への展開（SECURITY ACTION普及など）が次のステップです。</div>'
+    : lowItems.map(item => `
+        <div class="advice-card">
+          <strong>Q${item.i + 1}. ${item.q}</strong>
+          <p style="margin: 0.3rem 0 0; font-size: 0.92rem; color: var(--c-gray-d);">
+            ${item.v === 1 ? '一部実施 ─ 全職員・全サービスへの展開を' : '未実施／不明 ─ 優先的に着手を'}
+          </p>
+        </div>
+      `).join('');
+  document.getElementById('advices').innerHTML = adviceHtml;
+
+  document.getElementById('resultArea').style.display = 'block';
+  document.getElementById('resultArea').scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetForm() {
+  form.reset();
+  document.getElementById('resultArea').style.display = 'none';
+  document.getElementById('answered').textContent = '0';
+  document.getElementById('progressFill').style.width = '0';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
