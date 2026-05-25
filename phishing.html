@@ -41,38 +41,48 @@
   overflow-x: auto;
   white-space: nowrap;
 }
-.fake-amazon {
-  background: #232f3e;
-  color: #fff;
-  padding: 0.6rem 1rem;
-  font-weight: 700;
-  font-size: 1.05rem;
+.fake-site-image-wrap {
+  cursor: pointer;
+  position: relative;
+  background: #fff;
 }
-.fake-amazon-form {
-  padding: 1.5rem 1.2rem;
-}
-.fake-amazon-form h2 {
-  margin: 0 0 1rem;
-  font-size: 1.2rem;
-}
-.fake-input {
+.fake-site-image {
+  width: 100%;
+  max-width: 100%;
   display: block;
-  width: 100%;
-  padding: 0.6rem;
-  margin: 0.4rem 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 0.95rem;
+  border: none;
 }
-.fake-signin {
-  background: #f7b500;
-  color: #000;
-  border: 1px solid #d49e00;
-  padding: 0.6rem 1rem;
-  font-weight: 700;
+.fake-site-overlay {
+  position: absolute;
+  top: 0; left: 0;
   width: 100%;
-  border-radius: 4px;
-  margin-top: 0.6rem;
+  height: 100%;
+  background: rgba(192, 0, 0, 0);
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fake-site-image-wrap:hover .fake-site-overlay {
+  background: rgba(192, 0, 0, 0.08);
+}
+.fake-site-hint {
+  background: var(--c-red);
+  color: #fff;
+  padding: 0.5rem 0.8rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+.fake-footer-note {
+  background: #fafafa;
+  border-top: 1px solid #eee;
+  padding: 0.6rem 1rem;
+  font-size: 0.78rem;
+  color: #888;
+  margin: 0;
+  text-align: center;
 }
 .cmp h4 { margin: 0.5rem 0 0.2rem; font-size: 0.95rem; }
 .cmp .v {
@@ -128,18 +138,14 @@
       <span class="browser-url danger-spot" data-id="3" data-hint="URLのドメインを最後まで読む！「amazon.co.jp」のあと「.account-verify-secure.com」が本当のドメイン。amazonは偽装">https://amazon.co.jp.account-verify-secure.com/signin</span>
       <span class="danger-spot" data-id="4" data-hint="HTTPSだから安心ではない。「鍵マーク」は通信暗号化を示すだけで、サイトの本物・偽物とは別問題" style="font-size: 0.85rem; padding: 0 0.4rem;">🔒</span>
     </div>
-    <div class="fake-amazon">amazon</div>
-    <div class="fake-amazon-form">
-      <h2>サインイン</h2>
-      <label style="font-size: 0.88rem;">Eメールまたは携帯電話番号</label>
-      <input class="fake-input" placeholder="example@example.com">
-      <label style="font-size: 0.88rem;">パスワード</label>
-      <input class="fake-input" type="password" placeholder="•••••••">
-      <button class="fake-signin" onclick="alert('入力してはいけません！ ここで送信ボタンを押すと、IDとパスワードが犯人に渡ります。');">サインイン</button>
-      <p style="font-size: 0.75rem; color: #888; margin-top: 1rem;">
-        <span class="danger-spot" data-id="5" data-hint="本物のAmazonはフッターに「Conditions of Use」「Privacy Notice」「Help」などの正規リンクが必ずある。偽サイトはコピー忘れや表現の違いがある">© 2026 Amazon ─ 利用規約 / プライバシー</span>
-      </p>
+    <div class="fake-site-hint">▼ 本物そっくりの偽サインイン画面 ── タップ／クリックで何が起きるか確認</div>
+    <div class="fake-site-image-wrap" onclick="alert('⚠ 入力してはいけません！\n\nここで電話番号やメールアドレスを入力し、サインインを押すと、入力情報がそのまま犯人の手に渡ります。\n\n本物のサイトと見た目は全く同じです ── 「どこで入る前に止まるか」が勝負です。');">
+      <img src="amazon-signin.png" alt="（研修用）偽のサインイン画面の見本" class="fake-site-image">
+      <div class="fake-site-overlay"></div>
     </div>
+    <p class="fake-footer-note">
+      <span class="danger-spot" data-id="5" data-hint="本物のフッターには利用規約・プライバシー規約・ヘルプ・カスタマーサービス・著作権表示など多くの正規リンクが揃っている。偽サイトは数が少なかったり、リンク先がダミー（href=#）だったりする">© 偽サイトのフッター（リンクが揃っているか確認）</span>
+    </p>
   </div>
 
   <div style="margin: 1.2rem 0; text-align: center;">
